@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/SN_web_lightmode.png" width="300">
+    <h1>Hands-on Lab: String Patterns, Sorting and Grouping in MySQL using phpMyAdmin</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p>
+    <h1></h1>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.mysql.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">MySQL</a>. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png" width="100" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1></h1>
+    <h2>Database Used in this Lab</h2>
+    <p>The database used in this lab is an internal database. You will be working on a sample HR database. This HR database schema consists of 5 tables called <strong>EMPLOYEES</strong>, <strong>JOB_HISTORY</strong>, <strong>JOBS</strong>, <strong>DEPARTMENTS</strong> and <strong>LOCATIONS</strong>. Each table has a few rows of sample data. The following diagram shows the tables for the HR database:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Create%20tables%20using%20SQL%20scripts%20and%20Load%20data%20into%20tables/images/Sample_1.PNG" width="670" height="400">
+    <h2>Objectives</h2>
+    <p>After completing this lab, you will be able to:</p>
+    <ul>
+      <li>Simplify a SELECT statement by using string patterns, ranges, or sets of values</li>
+      <li>Sort the result set in either ascending or descending order and identify which column to use for the sorting order</li>
+      <li>Eliminate duplicates from a result set and further restrict a result set</li>
+    </ul>
+    <p>Once the tables are loaded open the sql editor to start executing the functions.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/queryeditor.png">
+    <h1>Exercise 1: String Patterns</h1>
+    <p>In this exercise, you will go through some SQL problems on String Patterns.</p>
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve all employees whose address is in Elgin,IL.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the LIKE operator to find similar strings.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> F_NAME , L_NAME
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">WHERE</span> ADDRESS <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'%Elgin,IL%'</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve all employees who were born during the 1970's.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the LIKE operator to find similar strings.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> F_NAME , L_NAME
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">WHERE</span> B_DATE <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'197%'</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3B.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve all employees in department 5 whose salary is between 60000 and 70000.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the keyword BETWEEN for this SQL problem.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">WHERE</span> (SALARY <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">60000</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">70000</span>) <span class="hljs-keyword">AND</span> DEP_ID = <span class="hljs-number">5</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3C.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol>
+    <h1>Exercise 2: Sorting</h1>
+    <p>In this exercise, you will go through some SQL problems on Sorting.</p>
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve a list of employees ordered by department ID.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the ORDER BY clause for this SQL problem. By default, the ORDER BY clause sorts the records in ascending order.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> F_NAME, L_NAME, DEP_ID 
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> DEP_ID;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3E.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve a list of employees ordered in descending order by department ID and within each department ordered alphabetically in descending order by last name.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the ORDER BY clause with DESC for this SQL problem.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> F_NAME, L_NAME, DEP_ID 
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> DEP_ID <span class="hljs-keyword">DESC</span>, L_NAME <span class="hljs-keyword">DESC</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3F.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>(Optional) Problem:</p>
+        <blockquote>
+          <p><em>In SQL problem 2 (Exercise 2 Problem 2), use department name instead of department ID. Retrieve a list of employees ordered by department name, and within each department ordered alphabetically in descending order by last name.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Department name is in the DEPARTMENTS table. So your query will need to retrieve data from more than one table. Donâ€™t worry if you are not able to figure this SQL problem out. Weâ€™ll cover working with multiple tables in the lecture <strong>Working with Multiple Tables</strong>.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> D.DEP_NAME , <span class="hljs-built_in">E</span>.F_NAME, <span class="hljs-built_in">E</span>.L_NAME
+<span class="hljs-keyword">FROM</span> EMPLOYEES <span class="hljs-keyword">as</span> <span class="hljs-built_in">E</span>, DEPARTMENTS <span class="hljs-keyword">as</span> D
+<span class="hljs-keyword">WHERE</span> <span class="hljs-built_in">E</span>.DEP_ID = D.DEPT_ID_DEP
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> D.DEP_NAME, <span class="hljs-built_in">E</span>.L_NAME <span class="hljs-keyword">DESC</span>;
+</code></pre>
+          <blockquote>
+            <p>In the SQL Query above, <code>D</code> and <code>E</code> are aliases for the table names. Once you define an alias like <code>D</code> in your query, you can simply write <code>D.COLUMN_NAME</code> rather than the full form <code>DEPARTMENTS.COLUMN_NAME</code>.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3G.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol><br>
+    <h1>Exercise 3: Grouping</h1>
+    <p>In this exercise, you will go through some SQL problems on Grouping.</p>
+    <p><strong>NOTE:</strong> The SQL problems in this exercise involve usage of SQL Aggregate functions AVG and COUNT. COUNT has been covered earlier. AVG is a function that can be used to calculate the Average or Mean of all values of a specified column in the result set. For example, to retrieve the average salary for all employees in the EMPLOYEES table, issue the query: <code>SELECT AVG(SALARY) FROM EMPLOYEES;</code>. You will learn more about AVG and other aggregate functions later in the lecture <strong>Built-in Database Functions</strong>.</p>
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>For each department ID retrieve the number of employees in the department.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use COUNT(*) to retrieve the total count of a column, and then GROUP BY.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> DEP_ID, <span class="hljs-built_in">COUNT</span>(*)
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DEP_ID;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3H.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>For each department retrieve the number of employees in the department, and the average employee salary in the department..</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use COUNT(*) to retrieve the total count of a column, and AVG() function to compute average salaries, and then GROUP BY.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> DEP_ID, <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>), <span class="hljs-built_in">AVG</span>(SALARY)
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DEP_ID;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3J.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Label the computed columns in the result set of SQL problem 2 (Exercise 3 Problem 2) as NUM_EMPLOYEES and AVG_SALARY.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use SQL Aliases: <code>column_name AS alias_name</code>. For example, AVG(SALARY) AS "AVG_SALARY".</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> DEP_ID, <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> <span class="hljs-string">"NUM_EMPLOYEES"</span>, <span class="hljs-built_in">AVG</span>(SALARY) <span class="hljs-keyword">AS</span> <span class="hljs-string">"AVG_SALARY"</span>
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DEP_ID;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3K.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>In SQL problem 3 (Exercise 3 Problem 3), order the result set by Average Salary..</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use ORDER BY after the GROUP BY.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> DEP_ID, <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> <span class="hljs-string">"NUM_EMPLOYEES"</span>, <span class="hljs-built_in">AVG</span>(SALARY) <span class="hljs-keyword">AS</span> <span class="hljs-string">"AVG_SALARY"</span>
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DEP_ID
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> AVG_SALARY;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3L.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>In SQL problem 4 (Exercise 3 Problem 4), limit the result to departments with fewer than 4 employees.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use HAVING after the GROUP BY, and use the count() function in the HAVING clause instead of the column label.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> DEP_ID, <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> <span class="hljs-string">"NUM_EMPLOYEES"</span>, <span class="hljs-built_in">AVG</span>(SALARY) <span class="hljs-keyword">AS</span> <span class="hljs-string">"AVG_SALARY"</span>
+<span class="hljs-keyword">FROM</span> EMPLOYEES
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> DEP_ID
+<span class="hljs-keyword">HAVING</span> <span class="hljs-built_in">count</span>(*) &#x3C; <span class="hljs-number">4</span>
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> AVG_SALARY;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/3M.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol>
+    <h1>Solution Script</h1>
+    <p>If you would like to run all the solution queries of the SQL problems of this lab with a script, download the script below.Import the script to phpadmin mysql interface and run. Follow <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week2/Create_and%20_Load.md.html" target="_blank" rel="external">Hands-on Lab : Create tables using SQL scripts and Load data into tables</a> on how to upload a script to phpmyadmin console and run it.</p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/StringPattern-Sorting-Grouping_Solution_Script.sql" target="_blank" rel="external">StringPattern-Sorting-Grouping_Solution_Script.sql</a></li>
+    </ul><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+    <p><a href="https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01" target="_blank" rel="external">Malika Singla</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-11-01</td>
+          <td>0.1</td>
+          <td>Lakshmi Holla, Malika Singla</td>
+          <td>Initial Version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
